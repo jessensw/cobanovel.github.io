@@ -1,0 +1,45 @@
+/* Reset gaya dasar */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif; /* Font aesthetic dari Google Fonts */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Latar belakang putih */
+    color: #333; /* Warna teks gelap */
+}
+
+/* Gaya untuk halaman awal */
+#landing-page {
+    text-align: center;
+}
+
+#landing-page h1 {
+    font-size: 3rem;
+    font-weight: 600; /* Tebal font */
+    margin-bottom: 20px;
+    color: #444; /* Warna teks judul */
+}
+
+#start-button {
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f4a261; /* Warna tombol oranye pastel */
+    color: white; /* Warna teks putih */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#start-button:hover {
+    background-color: #e76f51; /* Warna tombol saat hover */
+    transform: scale(1.05); /* Animasi membesar saat hover */
+}
+
+#start-button:active {
+    transform: scale(0.95); /* Animasi mengecil saat ditekan */
+}

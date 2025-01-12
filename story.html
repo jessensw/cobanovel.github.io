@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Gres & Gisel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="story.css">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-header">
+            <div class="profile">
+                <div class="profile-pic">
+                    <img src="./photo/profil gisel.jpeg" alt="Gisel">
+                </div>
+                <div class="profile-info">
+                    <p class="name">Gisel 12 IPS</p>
+                    <p class="status">Online</p>
+                </div>
+            </div>
+            <div class="header-options">•••</div>
+        </div>
+        <div id="chat-box">
+            <!-- Chat messages akan muncul di sini -->
+        </div>
+        <div id="input-box">
+            <button id="send-button">Next</button>
+        </div>
+    </div>
+
+    <!-- Audio untuk notifikasi -->
+    <audio id="notification-sound" src="./audio/notification.mp3"></audio>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const sendButton = document.getElementById("send-button");
+        const notificationSound = document.getElementById("notification-sound");
+
+        // Dialog dengan pengiriman foto
+        const dialog = [
+            { sender: "Gisel", text: "Gress" },
+            { sender: "Gisel", text: "Lu sibuk ngga?" },
+            { sender: "Gres", text: "Kenapa dah?" },
+            { sender: "Gisel", text: "Lu udah selesai tugas MTK belom?" },
+            { sender: "Gres", text: "Udah" },
+            { sender: "Gisel", text: "Minta foto dong Gress" },
+            { sender: "Gres", text: "Hemmm" },
+            { sender: "Gres", text: "Ntar" },
+            { sender: "Gisel", text: "Okayyy" },
+            {
+                sender: "Gres",
+                type: "image",
+                imageUrl: "./photo/foto gres.jpeg",
+                text: "mengirim foto"
+            },
+            { sender: "Gisel", text: "Foto tugas MTK nya nyet, bukan muke lu" },
+            { sender: "Gres", text: "Lah kagak bilang lu" },
+            { sender: "Gisel", text: "Monyet, punya temen gini amat dah" }
+        ];
+
+        let currentIndex = 0;
+
+        // Fungsi untuk memutar suara notifikasi
+        function playNotificationSound() {
+            notificationSound.currentTime = 0; // Reset waktu ke awal
+            notificationSound.play().catch((err) => {
+                console.error("Error memutar audio:", err);
+            });
+        }
+
+        // Fungsi untuk menampilkan dialog
+        function displayNextMessage() {
+            if (currentIndex < dialog.length) {
+                const message = dialog[currentIndex];
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message", message.sender === "Gisel" ? "received" : "sent");
+
+                if (message.type === "image") {
+                    // Jika pesan adalah gambar
+                    const img = document.createElement("img");
+                    img.src = message.imageUrl;
+                    img.alt = "Image";
+                    img.classList.add("message-image");
+                    messageDiv.appendChild(img);
+
+                    const caption = document.createElement("p");
+                    caption.textContent = message.text;
+                    caption.classList.add("image-caption");
+                    messageDiv.appendChild(caption);
+                } else {
+                    // Jika pesan adalah teks biasa
+                    messageDiv.textContent = message.text;
+                }
+
+                chatBox.appendChild(messageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll ke bawah
+                playNotificationSound(); // Putar suara notifikasi
+                currentIndex++;
+            } else {
+                // Jika dialog habis, ubah tombol menjadi "End"
+                sendButton.textContent = "End";
+                sendButton.removeEventListener("click", displayNextMessage);
+                sendButton.addEventListener("click", () => {
+                    window.location.href = "penutup.html"; // Redirect ke halaman ke-3
+                });
+            }
+        }
+
+        // Event listener untuk tombol "Next"
+        sendButton.addEventListener("click", displayNextMessage);
+
+        // Tampilkan pesan pertama saat halaman dimuat
+        displayNextMessage();
+    </script>
+</body>
+</html>
